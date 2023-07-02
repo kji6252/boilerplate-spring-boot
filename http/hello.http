@@ -1,0 +1,2 @@
+### HelloUseCase 호출
+GET localhost:8080/hello
