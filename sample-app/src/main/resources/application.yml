@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: sample-app
+  profiles:
+    include:
+      - persistence-adapter
+    active: local
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    db:
+      enabled: false
+
+server.shutdown: graceful
+spring.lifecycle.timeout-per-shutdown-phase: 60s
+
+logging:
+  level:
+    root: info
