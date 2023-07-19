@@ -18,4 +18,7 @@ class ServiceJpaEntity(
 
   ) : BaseEntity() {
 
+  override fun toString(): String {
+    return "ServiceJpaEntity(serviceId='$serviceId', serviceName='$serviceName')"
+  }
 }
