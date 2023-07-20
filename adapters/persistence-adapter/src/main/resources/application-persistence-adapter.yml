@@ -29,7 +29,7 @@ spring:
         maximum-pool-size: 50
         max-lifetime: 50000
         pool-name: HikariCP-Writer
-        jdbc-url: ${SPRING_DATASOURCE_DB_URL:jdbc:h2:mem:db;INIT=create domain if not exists oid as blob;DATABASE_TO_LOWER=TRUE}
+        jdbc-url: ${SPRING_DATASOURCE_DB_URL:}
         username: ${SPRING_DATASOURCE_DB_USERNAME:sa}
         password: ${SPRING_DATASOURCE_DB_PASSWORD:}
         initialization-mode: always
@@ -40,7 +40,7 @@ spring:
         max-lifetime: 50000
         maximum-pool-size: 50
         pool-name: HikariCP-Reader
-        jdbc-url: ${SPRING_DATASOURCE_READER_DB_URL:jdbc:h2:mem:db;INIT=create domain if not exists oid as blob;DATABASE_TO_LOWER=TRUE}
+        jdbc-url: ${SPRING_DATASOURCE_READER_DB_URL:}
         username: ${SPRING_DATASOURCE_DB_USERNAME:sa}
         password: ${SPRING_DATASOURCE_DB_PASSWORD:}
         initialization-mode: always
@@ -51,9 +51,13 @@ spring:
   datasource:
     db:
       writer:
-        driver-class-name: org.h2.Driver
+        driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+        jdbc-url: jdbc:tc:postgresql:14.6:///test
+        maximum-pool-size: 10
       reader:
-        driver-class-name: org.h2.Driver
+        driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+        jdbc-url: jdbc:tc:postgresql:14.6:///test
+        maximum-pool-size: 10
   jpa:
     hibernate:
       format_sql: true

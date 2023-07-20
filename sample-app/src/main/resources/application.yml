@@ -11,13 +11,30 @@ management:
     web:
       exposure:
         include: "*"
-  health:
-    db:
-      enabled: false
-
+    jmx:
+      exposure:
+        include: "*"
 server.shutdown: graceful
 spring.lifecycle.timeout-per-shutdown-phase: 60s
 
 logging:
   level:
     root: info
+
+---
+spring:
+  config.activate.on-profile: prod
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - "info"
+          - "health"
+  health:
+    db:
+      enabled: false
+    redis:
+      enabled: false
+  datadog.metrics.export.enabled: true

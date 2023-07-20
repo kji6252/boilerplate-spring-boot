@@ -26,7 +26,9 @@ dependencies {
 
   implementation("org.flywaydb:flyway-core")
 
-  runtimeOnly("com.h2database:h2")
   runtimeOnly("org.postgresql:postgresql:$postgresqlVersion")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
+  testImplementation("org.springframework.boot:spring-boot-testcontainers")
+  testImplementation("org.testcontainers:junit-jupiter")
+  testImplementation("org.testcontainers:postgresql")
 }

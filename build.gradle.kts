@@ -75,3 +75,7 @@ subprojects {
         mavenCentral()
     }
 }
+
+tasks {
+    defaultTasks.add(":sample-app:bootTestRun")
+}

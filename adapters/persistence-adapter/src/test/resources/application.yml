@@ -1,0 +1,29 @@
+spring:
+  test:
+    database:
+      replace: NONE
+  datasource:
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: jdbc:tc:postgresql:14.6:///test
+    hikari:
+      auto-commit: false
+  flyway:
+    enabled: false
+  jpa:
+    open-in-view: false
+    properties:
+      org.hibernate.envers.revision_field_name: rev_id
+      org.hibernate.envers.store_data_at_delete: true
+      org.hibernate.envers.do_not_audit_optimistic_locking_field: false
+      hibernate:
+        format_sql: true
+        query.in_clause_parameter_padding: true
+        default_batch_fetch_size: 50
+        connection.provider_disables_autocommit: true
+    hibernate:
+      ddl-auto: 'create-drop'
+      use-new-id-generator-mappings: true
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
+    database-platform: org.hibernate.dialect.PostgreSQLDialect

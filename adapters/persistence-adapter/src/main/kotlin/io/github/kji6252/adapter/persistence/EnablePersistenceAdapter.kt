@@ -39,8 +39,8 @@ annotation class EnablePersistenceAdapter()
 @EnableTransactionManagement
 @EnableJpaRepositories(
   basePackages = ["io.github.kji6252.adapter.persistence.*.jpa.repository"],
-  entityManagerFactoryRef = "dbEntityManager",
-  transactionManagerRef = "dbTransactionManager",
+  entityManagerFactoryRef = "entityManager",
+  transactionManagerRef = "transactionManager",
   repositoryFactoryBeanClass = EnversRevisionRepositoryFactoryBean::class
 )
 @EnableEnversRepositories
@@ -79,12 +79,12 @@ class DbConfig {
   }
 
   @Bean
-  fun dbTransactionManager(entityManager: LocalContainerEntityManagerFactoryBean) =
+  fun transactionManager(entityManager: LocalContainerEntityManagerFactoryBean) =
     JpaTransactionManager(entityManager.`object`!!)
 
   @Primary
   @Bean
-  fun dbEntityManager(
+  fun entityManager(
     jpaProperties: JpaProperties,
     hibernateProperties: HibernateProperties,
   ): LocalContainerEntityManagerFactoryBean {
@@ -100,8 +100,8 @@ class DbConfig {
   }
 
   @Bean
-  fun jpaQueryFactory(snsInappDbEntityManager: EntityManager): JPAQueryFactory {
-    return JPAQueryFactory(snsInappDbEntityManager)
+  fun jpaQueryFactory(entityManager: EntityManager): JPAQueryFactory {
+    return JPAQueryFactory(entityManager)
   }
 }
 

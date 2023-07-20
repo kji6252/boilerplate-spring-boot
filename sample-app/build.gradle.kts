@@ -14,4 +14,12 @@ dependencies {
 
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation(testFixtures(project(":domain")))
+
+  testImplementation("org.springframework.boot:spring-boot-devtools")
+  testImplementation("org.springframework.boot:spring-boot-testcontainers")
+  testImplementation("org.testcontainers:junit-jupiter")
+  testImplementation("org.testcontainers:postgresql")
+//  testImplementation("org.testcontainers:kafka")
+//  testImplementation("org.testcontainers:localstack")
+
 }
