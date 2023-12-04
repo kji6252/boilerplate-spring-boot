@@ -1,10 +1,15 @@
-import org.jetbrains.kotlin.konan.properties.loadProperties
-
 plugins {
-    kotlin("jvm")
-    kotlin("kapt")
+    val kotlinVersion = "1.9.20"
+    kotlin("jvm") version kotlinVersion
+    kotlin("kapt") version kotlinVersion
+    kotlin("plugin.allopen") version kotlinVersion apply false
+    kotlin("plugin.jpa") version kotlinVersion apply false
+    kotlin("plugin.spring") version kotlinVersion apply false
 
-    id("org.jlleitschuh.gradle.ktlint")
+    id("org.springframework.boot") version "3.2.0" apply false
+    id("io.spring.dependency-management") version "1.1.4" apply false
+
+    id("org.jlleitschuh.gradle.ktlint") version "10.3.0"
 }
 
 configurations {
@@ -12,7 +17,6 @@ configurations {
         extendsFrom(configurations.annotationProcessor.get())
     }
 }
-
 
 allprojects {
     apply(plugin = "kotlin")
@@ -54,10 +58,16 @@ val kotlinCoroutinesVersion: String by rootProject
 val mapstructVersion: String by rootProject
 
 subprojects {
+    repositories {
+        mavenCentral()
+    }
+    apply {
+        plugin("io.spring.dependency-management")
+    }
     dependencies {
         implementation(kotlin("stdlib"))
-        implementation("org.jetbrains.kotlin:kotlin-reflect")
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+        implementation(kotlin("reflect"))
+
 //        implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
         implementation("org.mapstruct:mapstruct:$mapstructVersion")
@@ -70,9 +80,6 @@ subprojects {
         testImplementation("io.mockk:mockk:$mockkVersion")
         testImplementation("io.kotest.extensions:kotest-extensions-spring:$kotestExtensionsSpringVersion")
         testImplementation("org.mockito.kotlin:mockito-kotlin:$mockitoVersion")
-    }
-    repositories {
-        mavenCentral()
     }
 }
 
